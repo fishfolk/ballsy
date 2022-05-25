@@ -35,12 +35,19 @@ func _physics_process(delta):
 	var sprite = $CollisionShape2D/Sprite
 	var rotation = rotation_speed * speed * delta
 	sprite.transform = sprite.transform.rotated(rotation)
-	if(last_player_touched != null):
-		transform.origin.y = last_player_touched.transform.origin.y
-
-
 
 func add_force(force , node):
 	if node != last_player_touched: 
 		return
 	linear_velocity += force
+
+
+func _on_Detector_body_entered(body):
+	print("B", body.name)
+	var papi = body.get_parent()
+	if body is MainCharacter:
+		last_player_touched = body
+		print("A ",last_player_touched.name)
+		var direction =  position.direction_to(body.position)
+		add_force(-direction * 250, body)
+		

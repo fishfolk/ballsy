@@ -51,3 +51,5 @@ position = Vector2( 347, 296 )
 
 [node name="Ball" parent="YSort" instance=ExtResource( 3 )]
 position = Vector2( 550, 308 )
+
+[node name="Juanito" parent="YSort" instance=ExtResource( 2 )]

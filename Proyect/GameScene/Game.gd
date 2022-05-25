@@ -15,7 +15,6 @@ func _ready():
 	current_player = 0
 	players = [
 		$YSort/MainCharacter ,
-		$YSort/MainCharacter1 ,
 		$YSort/MainCharacter2 ,
 		$YSort/MainCharacter3 ,
 		$YSort/MainCharacter4
@@ -24,13 +23,18 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
+	_check_change_player()
+	pass
 
-	if Input.is_action_just_pressed("change_defensive") or Input.is_action_just_pressed("change_offensive") :
 
-		var f:int =current_player +  Input.get_axis("change_defensive","change_offensive")
-		print(len(players))
-		if f < 0 :
-			f = len(players)-1
-		f = f % len(players)-1
-		print(f)
-		_changePlayer(f)
+
+func _check_change_player():
+	var not_change_pressed:bool = not Input.is_action_just_pressed("change_defensive")
+	not_change_pressed = not_change_pressed and not Input.is_action_just_pressed("change_offensive")
+	if  not_change_pressed :
+		return
+	var f:int = current_player +  Input.get_axis("change_defensive","change_offensive")
+	if f < 0 :
+		f = len(players)-1
+	f = f % len(players)
+	_changePlayer(f)
