@@ -1,4 +1,6 @@
 extends RigidBody2D
+class_name Ball
+
 
 export var rotation_speed:float = 0.15
 
@@ -36,18 +38,20 @@ func _physics_process(delta):
 	var rotation = rotation_speed * speed * delta
 	sprite.transform = sprite.transform.rotated(rotation)
 
-func add_force(force , node):
+func make_strike(force , node):
 	if node != last_player_touched: 
 		return
 	linear_velocity += force
 
+func make_pass(force , node):
+	make_strike(force , node)
+	last_player_touched = null
+
 
 func _on_Detector_body_entered(body):
-	print("B", body.name)
-	var papi = body.get_parent()
 	if body is MainCharacter:
 		last_player_touched = body
-		print("A ",last_player_touched.name)
+		body._ball = self
 		var direction =  position.direction_to(body.position)
-		add_force(-direction * 250, body)
+		make_strike(-direction * 250, body)
 		

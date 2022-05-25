@@ -8,6 +8,7 @@ var current_player:int
 
 func _changePlayer(id):
 	players[current_player].is_controlled = false
+	players[current_player].pass_ball(players[id])
 	players[id].is_controlled = true
 	current_player = id
 

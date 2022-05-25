@@ -2,12 +2,21 @@ extends KinematicBody2D
 class_name MainCharacter
 
 
-var speed: float = 6;
-var is_controlled:bool = false;
-export var team:int = 0;
-var _is_walking:bool = false;
+var speed: float = 6
+var is_controlled:bool = false
+export var team:int = 0
+var _is_walking:bool = false
+var _ball = null
 
-var dir:Vector2 = Vector2(1,0);
+
+
+func pass_ball(target:Node2D):
+	if _ball == null: return
+	var direction:Vector2 = _ball.position.direction_to(target.position)
+	var distance:float = self.position.distance_to(target.position)
+	print("|Distancia: ",distance)
+	var force = direction * (distance * 2 + 100)
+	_ball.make_pass(force,self)
 
 func _ready():
 	$AnimationPlayer.play("Idle")
@@ -22,14 +31,13 @@ func _physics_process(delta):
 	_machine_move(delta)
 
 
-func _process(delta):
+func _process(_delta):
 	if _is_walking:
 		$AnimationPlayer.play("Walk")
 	else: $AnimationPlayer.play("Idle")
 
 
 	if(is_controlled):
-		_pass_ball()
 		_strike()
 		return
 	_machine_pass()
@@ -43,9 +51,9 @@ func _machine_move(delta):
 	pass
 
 func _strike():
-	pass
-
-func _pass_ball():
+	if not Input.is_action_just_pressed("strike_to_arch"):
+		return
+	
 	pass
 
 
@@ -70,6 +78,7 @@ func _move_to(delta, dir):
 	var vertical:Vector2 = transform.basis_xform(Vector2(0,-1))
 	var horizontal_velocity:Vector2 = speed * horizontal * dir.x * delta;
 	var vertical_velocity:Vector2 = speed * vertical * dir.y * delta;
+# warning-ignore:return_value_discarded
 	move_and_slide(horizontal_velocity + (vertical_velocity), Vector2.UP)
 
 
