@@ -1,8 +1,10 @@
 extends KinematicBody2D
+class_name MainCharacter
+
 
 var speed: float = 6;
-export var is_controlled:bool = false;
-
+var is_controlled:bool = false;
+export var team:int = 0;
 #Return the Distance Absolute between thsi node and vector2 b 
 func get_distace(b:Vector2):
 	return(_get_raw_distance(b).abs())

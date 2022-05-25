@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Sprites/FishFight/tiles/Ground Metal.png" type="Texture" id=1]
 [ext_resource path="res://Characters/MainCharacter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Ball/Ball.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GameScene/Game.gd" type="Script" id=4]
 
 [sub_resource type="TileSet" id=1]
 1/name = "Ground Metal.png 1"
@@ -28,6 +29,7 @@
 1/z_index = 0
 
 [node name="Game" type="Node2D"]
+script = ExtResource( 4 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -40,7 +42,6 @@ position = Vector2( 496, 290 )
 
 [node name="MainCharacter2" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 469, 206 )
-is_controlled = true
 
 [node name="MainCharacter3" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 465, 391 )
