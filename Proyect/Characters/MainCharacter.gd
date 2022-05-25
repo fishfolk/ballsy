@@ -70,7 +70,7 @@ func _move_to(delta, dir):
 	var vertical:Vector2 = transform.basis_xform(Vector2(0,-1))
 	var horizontal_velocity:Vector2 = speed * horizontal * dir.x * delta;
 	var vertical_velocity:Vector2 = speed * vertical * dir.y * delta;
-	move_and_slide(horizontal_velocity + (vertical_velocity / 1.5), Vector2.UP)
+	move_and_slide(horizontal_velocity + (vertical_velocity), Vector2.UP)
 
 
 func _on_Area2D_body_entered(body):

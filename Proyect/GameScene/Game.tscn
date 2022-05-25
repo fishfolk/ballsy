@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Sprites/FishFight/tiles/Ground Metal.png" type="Texture" id=1]
 [ext_resource path="res://Characters/MainCharacter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Ball/Ball.tscn" type="PackedScene" id=3]
 [ext_resource path="res://GameScene/Game.gd" type="Script" id=4]
+[ext_resource path="res://Characters/Striker/Striker.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Characters/Defender/Defender.tscn" type="PackedScene" id=6]
 
 [sub_resource type="TileSet" id=1]
 1/name = "Ground Metal.png 1"
@@ -37,19 +39,20 @@ format = 1
 
 [node name="YSort" type="YSort" parent="."]
 
-[node name="MainCharacter" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 496, 290 )
-
-[node name="MainCharacter2" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 469, 206 )
-
-[node name="MainCharacter3" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 465, 391 )
-
-[node name="MainCharacter4" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 347, 296 )
-
 [node name="Ball" parent="YSort" instance=ExtResource( 3 )]
 position = Vector2( 550, 308 )
 
-[node name="Juanito" parent="YSort" instance=ExtResource( 2 )]
+[node name="Juanito_el_portero" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 145, 266 )
+
+[node name="Juancho_el_defenza" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 216, 307 )
+
+[node name="el_paco_el_defenza" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 217, 240 )
+
+[node name="Jorge_el_delantero" parent="YSort" instance=ExtResource( 5 )]
+position = Vector2( 327, 232 )
+
+[node name="javier_el_delantero" parent="YSort" instance=ExtResource( 5 )]
+position = Vector2( 327, 305 )

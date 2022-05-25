@@ -14,10 +14,11 @@ func _changePlayer(id):
 func _ready():
 	current_player = 0
 	players = [
-		$YSort/MainCharacter ,
-		$YSort/MainCharacter2 ,
-		$YSort/MainCharacter3 ,
-		$YSort/MainCharacter4
+		$YSort/Juanito_el_portero ,
+		$YSort/Juancho_el_defenza ,
+		$YSort/el_paco_el_defenza ,
+		$YSort/javier_el_delantero ,
+		$YSort/Jorge_el_delantero
 	]
 	players[current_player].is_controlled = true
 	pass # Replace with function body.
