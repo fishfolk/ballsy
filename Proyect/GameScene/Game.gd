@@ -1,7 +1,17 @@
 extends Node2D
 
+class_name Game
+
 var players = []
 var ball
+
+var score_board:Vector2 = Vector2(0,0)
+
+func on_add_goal(team):
+
+	if(team < 2):
+		score_board.x += 1
+	else: score_board.y += 1
 
 var current_player:int
 
@@ -13,6 +23,9 @@ func _changePlayer(id):
 	current_player = id
 
 func _ready():
+# warning-ignore:return_value_discarded
+	Signals.connect("add_goal",self,"on_add_goal")
+	
 	current_player = 0
 	players = [
 		$YSort/Juanito_el_portero ,
@@ -24,6 +37,7 @@ func _ready():
 	players[current_player].is_controlled = true
 	pass # Replace with function body.
 
+# warning-ignore:unused_argument
 func _process(delta):
 	_check_change_player()
 	pass
@@ -35,7 +49,7 @@ func _check_change_player():
 	not_change_pressed = not_change_pressed and not Input.is_action_just_pressed("change_offensive")
 	if  not_change_pressed :
 		return
-	var f:int = current_player +  Input.get_axis("change_defensive","change_offensive")
+	var f:int = current_player +  int(Input.get_axis("change_defensive","change_offensive"))
 	if f < 0 :
 		f = len(players)-1
 	f = f % len(players)

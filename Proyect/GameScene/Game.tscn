@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Sprites/FishFight/tiles/Ground Metal.png" type="Texture" id=1]
 [ext_resource path="res://Characters/MainCharacter.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://GameScene/Game.gd" type="Script" id=4]
 [ext_resource path="res://Characters/Striker/Striker.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Characters/Defender/Defender.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Goal/Goal.tscn" type="PackedScene" id=7]
 
 [sub_resource type="TileSet" id=1]
 1/name = "Ground Metal.png 1"
@@ -56,3 +57,6 @@ position = Vector2( 327, 232 )
 
 [node name="javier_el_delantero" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 327, 305 )
+
+[node name="Goal" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 34, 277 )

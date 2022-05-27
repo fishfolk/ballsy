@@ -14,6 +14,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Ball/Ball.gd"
 }, {
+"base": "Node2D",
+"class": "Game",
+"language": "GDScript",
+"path": "res://GameScene/Game.gd"
+}, {
+"base": "Node2D",
+"class": "Goal",
+"language": "GDScript",
+"path": "res://Goal/Goal.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "MainCharacter",
 "language": "GDScript",
@@ -21,6 +31,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Ball": "",
+"Game": "",
+"Goal": "",
 "MainCharacter": ""
 }
 
@@ -29,6 +41,10 @@ _global_script_class_icons={
 config/name="Just Another Futball"
 run/main_scene="res://GameScene/Game.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Signals="*res://AutoLoads/Signals.gd"
 
 [input]
 
