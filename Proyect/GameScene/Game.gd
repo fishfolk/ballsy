@@ -8,10 +8,10 @@ var ball
 var score_board:Vector2 = Vector2(0,0)
 
 func on_add_goal(team):
-
 	if(team < 2):
 		score_board.x += 1
 	else: score_board.y += 1
+	print(score_board)
 
 var current_player:int
 

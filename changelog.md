@@ -1,1 +1,2 @@
-+ Working in Goal ScoreBoard.
++ Goal score added.
++ Working in NPC IA.

@@ -44,7 +44,7 @@ format = 1
 position = Vector2( 550, 308 )
 
 [node name="Juanito_el_portero" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 145, 266 )
+position = Vector2( 867, 466 )
 
 [node name="Juancho_el_defenza" parent="YSort" instance=ExtResource( 6 )]
 position = Vector2( 216, 307 )
