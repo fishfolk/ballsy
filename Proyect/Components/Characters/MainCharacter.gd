@@ -4,13 +4,13 @@ class_name MainCharacter
 
 export var team:int = 0
 export var active :bool = true
+export var maximun_x:float
+export var is_controlled:bool = false
 var speed: float = 6
-var is_controlled:bool = false
 var _is_walking:bool = false
 var _ball = null
 
 var _target_move:Vector2 
-
 
 func pass_ball(target:Node2D):
 	if _ball == null: return
@@ -19,12 +19,16 @@ func pass_ball(target:Node2D):
 	var force = direction * (distance * 2 + 100)
 	_ball.make_pass(force,self)
 
+
 func _ready():
 	_target_move = Data.get_random_field_coord()
-
 	$AnimationPlayer.play("Idle")
 	speed *= 1000
+	if(is_controlled): return
+	
 	pass 
+
+
 
 
 func _physics_process(delta):
@@ -45,21 +49,29 @@ func _process(_delta):
 	if(is_controlled):
 		_strike()
 		return
+	
 	_machine_pass()
 
 
 func _machine_pass():
+	_target_move = Globals.game.ball.position
 	pass
 
 func _machine_move(delta):
+	var porcent:Vector2 = Data.get_percent(_target_move)
+	if team > 0: porcent.x = porcent.x -1
+	if porcent.x > maximun_x: return
 	var distance = position.distance_to(_target_move)
 	var dir = position.direction_to(_target_move)
-	if distance < 100 : dir = Vector2.ZERO
+	if distance < 30 :
+		Globals.game.ball.make_pass_to_character(Globals.game.get_current_character() , self)
+	if distance < 10 :
+		 dir = Vector2.ZERO
 	_move_to(delta, dir)
 	pass
 
 func _strike():
-	if not Input.is_action_just_pressed("strike_to_arch"):
+	if not Input.is_action_just_pressed(Data.PlayerInputs[team].strike):
 		return
 	
 	pass
@@ -70,9 +82,9 @@ func _activate_hablility():
 
 
 func _human_move(delta):
-	var horizontal_axis:float = Input.get_axis("horizontal_left","horizontal_rigth")
-	var vertical_axis:float = Input.get_axis("vertical_down", "vertical_up")
-	_move_to(delta, Vector2(horizontal_axis,-vertical_axis))
+	var horizontal_axis:float = Input.get_axis(Data.PlayerInputs[team].left,Data.PlayerInputs[team].right)
+	var vertical_axis:float = Input.get_axis(Data.PlayerInputs[team].down, Data.PlayerInputs[team].up)
+	_move_to(delta, Vector2(horizontal_axis,-vertical_axis) * 1.4)
 
 
 func _move_to(delta, dir):

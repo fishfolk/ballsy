@@ -1,3 +1,5 @@
-+ Adding Score Board Display.
-+ Adding Mapping for GameControllers (Player 1).
-+ Adding Roboto Font Asset.
++ first test with two teams
++ mapping for second player
++ adding inputmap better.
++ make field bounds.
++ adding second goal arch.

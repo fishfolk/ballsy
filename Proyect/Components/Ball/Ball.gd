@@ -6,31 +6,24 @@ export var rotation_speed:float = 0.15
 
 var last_player_touched:Node2D = null
 
-
-#Return the Distance Absolute between thsi node and vector2 b 
-func get_distace(b:Vector2):
-	return(_get_raw_distance(b).abs())
-
-
-func _get_raw_distance(b:Vector2):
-	var result:Vector2 = transform.origin - b;
-	return result
-
-
-#Return vector2 Normalized pointed to object
-func get_direction(target):
-	var result:Vector2 = _get_raw_distance(target).normalized()
-	return result
-	
-
+var timestamp:float
+var time_to:float
+var cd:float = 3
 
 func set_last_player_touched(node):
 	last_player_touched = node
 
 
 func _ready():
+	timestamp = OS.get_unix_time()
+	add_Time()
 	pass
 
+func add_Time():
+	time_to = timestamp + cd
+
+func _process(delta):
+	timestamp = OS.get_unix_time()
 
 func _physics_process(delta):
 	var speed = linear_velocity.x
@@ -39,9 +32,20 @@ func _physics_process(delta):
 	sprite.transform = sprite.transform.rotated(rotation)
 
 func make_strike(force , node):
+
 	if node != last_player_touched: 
 		return
+
 	linear_velocity += force
+	linear_velocity = Vector2(clamp(linear_velocity.x, -450, 450), clamp(linear_velocity.y, -450, 450))
+
+func make_pass_to_character(target_node , node):
+	if time_to > timestamp: return
+	add_Time()
+	var dir = position.direction_to(target_node.position)
+	var distance = position.distance_to(target_node.position)
+	var force = (dir * 50) + (dir * 250 * distance)
+	make_pass(force , node)
 
 func make_pass(force , node):
 	make_strike(force , node)

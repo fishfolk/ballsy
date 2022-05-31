@@ -5,7 +5,7 @@ var score_label:Label
 
 var timeLabel:Label
 
-var _time_in_seconds:float = 600
+var _time_in_seconds:float = 300
 
 
 

@@ -8,13 +8,14 @@ var ball
 var score:Vector2 = Vector2(0,0)
 
 func on_add_goal(team):
-	if(team < 2):
+	if(team < 1):
 		score.x += 1
 	else: score.y += 1
 	Globals.score_board.display_score(score)
 
 var current_player:int
 
+func get_current_character(): return players[current_player]
 
 func _changePlayer(id):
 	players[current_player].is_controlled = false
@@ -24,6 +25,7 @@ func _changePlayer(id):
 
 func _ready():
 	Globals.game = self
+	ball = $YSort/Ball
 # warning-ignore:return_value_discarded
 	Signals.connect("add_goal",self,"on_add_goal")
 	
@@ -46,11 +48,11 @@ func _process(delta):
 
 
 func _check_change_player():
-	var not_change_pressed:bool = not Input.is_action_just_pressed("change_defensive")
-	not_change_pressed = not_change_pressed and not Input.is_action_just_pressed("change_offensive")
+	var not_change_pressed:bool = not Input.is_action_just_pressed(Data.PlayerInputs[0].offensive)
+	not_change_pressed = not_change_pressed and not Input.is_action_just_pressed(Data.PlayerInputs[0].defensive)
 	if  not_change_pressed :
 		return
-	var f:int = current_player +  int(Input.get_axis("change_defensive","change_offensive"))
+	var f:int = current_player +  int(Input.get_axis(Data.PlayerInputs[0].defensive,Data.PlayerInputs[0].offensive))
 	if f < 0 :
 		f = len(players)-1
 	f = f % len(players)
