@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "RigidBody2D",
 "class": "Ball",
 "language": "GDScript",
-"path": "res://Ball/Ball.gd"
+"path": "res://Components/Ball/Ball.gd"
 }, {
 "base": "Node2D",
 "class": "Game",
@@ -22,30 +22,37 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Goal",
 "language": "GDScript",
-"path": "res://Goal/Goal.gd"
+"path": "res://Components/Goal/Goal.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "MainCharacter",
 "language": "GDScript",
-"path": "res://Characters/MainCharacter.gd"
+"path": "res://Components/Characters/MainCharacter.gd"
+}, {
+"base": "Control",
+"class": "ScoreBoard",
+"language": "GDScript",
+"path": "res://Components/UI/Score Board/ScoreBoard.gd"
 } ]
 _global_script_class_icons={
 "Ball": "",
 "Game": "",
 "Goal": "",
-"MainCharacter": ""
+"MainCharacter": "",
+"ScoreBoard": ""
 }
 
 [application]
 
 config/name="Just Another Futball"
-run/main_scene="res://GameScene/Game.tscn"
+run/main_scene="res://GameScene/MainScene.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Signals="*res://AutoLoads/Signals.gd"
 Data="*res://AutoLoads/Data.gd"
+Globals="*res://AutoLoads/Globals.gd"
 
 [input]
 
@@ -65,27 +72,32 @@ vertical_up={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":-1.0,"script":null)
  ]
 }
 vertical_down={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":1.0,"script":null)
  ]
 }
 change_offensive={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":5,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
 change_defensive={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":4,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
 strike_to_arch={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":1,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
 

@@ -1,6 +1,7 @@
 extends Node
 
 
+# warning-ignore:unused_signal
 signal add_goal(team)
 
 

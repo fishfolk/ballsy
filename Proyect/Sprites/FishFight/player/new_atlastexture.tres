@@ -1,8 +1,0 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=2]
-
-[ext_resource path="res://Sprites/FishFight/player/PlayerFishy(64x64).png" type="Texture" id=1]
-
-[resource]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 409.099, 7.41175, 42.2267, 57.9829 )

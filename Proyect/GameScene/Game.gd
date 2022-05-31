@@ -5,13 +5,13 @@ class_name Game
 var players = []
 var ball
 
-var score_board:Vector2 = Vector2(0,0)
+var score:Vector2 = Vector2(0,0)
 
 func on_add_goal(team):
 	if(team < 2):
-		score_board.x += 1
-	else: score_board.y += 1
-	print(score_board)
+		score.x += 1
+	else: score.y += 1
+	Globals.score_board.display_score(score)
 
 var current_player:int
 
@@ -23,6 +23,7 @@ func _changePlayer(id):
 	current_player = id
 
 func _ready():
+	Globals.game = self
 # warning-ignore:return_value_discarded
 	Signals.connect("add_goal",self,"on_add_goal")
 	
