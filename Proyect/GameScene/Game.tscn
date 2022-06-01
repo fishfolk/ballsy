@@ -46,64 +46,55 @@ format = 1
 [node name="Ball" parent="YSort" instance=ExtResource( 3 )]
 position = Vector2( 513, 270 )
 
-[node name="Juanito_el_portero" parent="YSort" instance=ExtResource( 2 )]
+[node name="team1_gp" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 106, 276 )
 maximun_x = 0.2
 
-[node name="Juancho_el_defenza" parent="YSort" instance=ExtResource( 6 )]
+[node name="team1_dd" parent="YSort" instance=ExtResource( 6 )]
 position = Vector2( 217, 363 )
-active = false
 maximun_x = 0.5
 
-[node name="el_paco_el_defenza" parent="YSort" instance=ExtResource( 6 )]
+[node name="team1_du" parent="YSort" instance=ExtResource( 6 )]
 position = Vector2( 212, 181 )
-active = false
 maximun_x = 0.5
 
-[node name="Jorge_el_delantero" parent="YSort" instance=ExtResource( 5 )]
+[node name="team1_sd" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 471, 317 )
-active = false
 maximun_x = 1.0
 
-[node name="javier_el_delantero" parent="YSort" instance=ExtResource( 5 )]
+[node name="team1_su" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 332, 271 )
-active = false
 maximun_x = 1.0
 
-[node name="Juanito_el_portero2" parent="YSort" instance=ExtResource( 2 )]
+[node name="team2_gp" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 905, 278 )
 team = 1
 maximun_x = 0.2
-is_controlled = true
 
-[node name="Juancho_el_defenza2" parent="YSort" instance=ExtResource( 6 )]
+[node name="team2_dd" parent="YSort" instance=ExtResource( 6 )]
 position = Vector2( 782, 401 )
 team = 1
-active = false
 maximun_x = 0.5
 
-[node name="el_paco_el_defenza2" parent="YSort" instance=ExtResource( 6 )]
+[node name="team2_du" parent="YSort" instance=ExtResource( 6 )]
 position = Vector2( 775, 148 )
 team = 1
-active = false
 maximun_x = 0.5
 
-[node name="Jorge_el_delantero2" parent="YSort" instance=ExtResource( 5 )]
+[node name="team2_su" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 537, 240 )
 team = 1
-active = false
 maximun_x = 1.0
 
-[node name="javier_el_delantero2" parent="YSort" instance=ExtResource( 5 )]
+[node name="team2_sd" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 664, 271 )
 team = 1
-active = false
 maximun_x = 1.0
 
-[node name="Goal Arc Player 1" parent="YSort" instance=ExtResource( 7 )]
+[node name="team1_arc" parent="YSort" instance=ExtResource( 7 )]
 position = Vector2( 34, 277 )
 
-[node name="Goal Arc Player 2" parent="YSort" instance=ExtResource( 7 )]
+[node name="team2_arc" parent="YSort" instance=ExtResource( 7 )]
 position = Vector2( 989, 277 )
 scale = Vector2( -1, 1 )
 teamowner = 0

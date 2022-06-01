@@ -36,7 +36,8 @@ func _physics_process(delta):
 	if(is_controlled):
 		_human_move(delta)
 		return
-	_machine_move(delta)
+	_is_walking = false
+#	_machine_move(delta)
 
 
 func _process(_delta):
