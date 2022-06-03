@@ -5,16 +5,27 @@ class_name Game
 var players = []
 var ball
 var teams = []
-
 var score:Vector2 = Vector2(0,0)
+
+func get_score(): return score
 
 func on_add_goal(team):
 	if(team < 1):
 		score.x += 1
 	else: score.y += 1
 	Globals.score_board.display_score(score)
+	Globals.goalAnim.play()
+	teams[0].current_npc.is_controlled = false
+	teams[1].current_npc.is_controlled = false
+	for npc in teams[0].npcs:
+		npc.reset_position()
+	for npc in teams[1].npcs:
+		npc.reset_position()
+	yield(get_tree().create_timer(5),"timeout")
+	teams[0].current_npc.is_controlled = true
+	teams[1].current_npc.is_controlled = true
+	ball.reset_pos()
 
-var current_player:int
 
 func get_current_character(team:int = 0): return teams[team].current_npc
 

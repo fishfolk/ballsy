@@ -4,13 +4,21 @@ class_name MainCharacter
 
 export var team:int = 0
 export var active :bool = true
+export var bounds = {
+	"x":{ "min": 0, "max":1},
+	"y":{"min": 0, "max":0.5}
+}
 export var maximun_x:float
 export var is_controlled:bool = false
 var speed: float = 6
 var _is_walking:bool = false
 var _ball = null
-
+var _original_position:Vector2
 var _target_move:Vector2 
+
+func reset_position():
+	_target_move = _original_position;
+
 
 func pass_ball(target:Node2D):
 	if _ball == null: return
@@ -21,6 +29,7 @@ func pass_ball(target:Node2D):
 
 
 func _ready():
+	_original_position = position;
 	_target_move = Data.get_random_field_coord()
 	$AnimationPlayer.play("Idle")
 	speed *= 1000
@@ -37,7 +46,7 @@ func _physics_process(delta):
 		_human_move(delta)
 		return
 	_is_walking = false
-#	_machine_move(delta)
+	_machine_move(delta)
 
 
 func _process(_delta):
@@ -58,14 +67,21 @@ func _machine_pass():
 	_target_move = Globals.game.ball.position
 	pass
 
+
+func _priory_ball():
+	pass
+
+func _getbound():
+	pass
+
 func _machine_move(delta):
 	var porcent:Vector2 = Data.get_percent(_target_move)
-	if team > 0: porcent.x = porcent.x -1
-	if porcent.x > maximun_x: return
+	var maxX = (0.5 + team * 0.5)
+	if porcent.x > maxX or porcent.x < team * 0.5: return
 	var distance = position.distance_to(_target_move)
 	var dir = position.direction_to(_target_move)
 	if distance < 30 :
-		Globals.game.ball.make_pass_to_character(Globals.game.get_current_character() , self)
+		pass_ball(Globals.game.get_current_character())
 	if distance < 10 :
 		 dir = Vector2.ZERO
 	_move_to(delta, dir)
@@ -89,9 +105,9 @@ func _human_move(delta):
 
 
 func _move_to(delta, dir):
-	_is_walking =not (dir.x == 0 and dir.y == 0)
-	if not _is_walking:
-		return
+	_is_walking = not (dir.x == 0 and dir.y == 0)
+	
+	if not _is_walking: return
 	$Sprite.flip_h = not dir.x >= 0
 
 	var horizontal_velocity:Vector2 = speed * Vector2(1,0) * dir.x * delta

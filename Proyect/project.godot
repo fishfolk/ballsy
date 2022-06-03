@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Components/Goal/Goal.gd"
 }, {
+"base": "Control",
+"class": "GoalUI",
+"language": "GDScript",
+"path": "res://Components/UI/GooalUI/GooalUI.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "MainCharacter",
 "language": "GDScript",
@@ -38,6 +43,7 @@ _global_script_class_icons={
 "Ball": "",
 "Game": "",
 "Goal": "",
+"GoalUI": "",
 "MainCharacter": "",
 "ScoreBoard": ""
 }

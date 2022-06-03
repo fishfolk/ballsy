@@ -12,7 +12,6 @@ func _ready():
 
 
 func _on_Area2D_body_entered(body):
-	print(body.name)
 	if body.name != "Ball": return
 	Signals.emit_signal("add_goal", teamowner)
 	
