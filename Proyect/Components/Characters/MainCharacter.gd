@@ -1,23 +1,38 @@
 extends KinematicBody2D
 class_name MainCharacter
 
-
-export var team:int = 0
+# func vars
 export var active :bool = true
+
+
+# Player Flags
+export var is_controlled:bool = false
+
+# Settigns
+var speed: float = 6
+export var team:int = 0
+var _ball = null
+func set_ball(ball): _ball = ball
+
+#IA vars
+var _ia_active:bool = true
+export var _player_to_pass:int = 5
+
+#Anim Flags
+var _is_walking:bool = false
+
+#Nav Vars
+var _original_position:Vector2
+var _target_move:Vector2
 export var bounds = {
 	"x":{ "min": 0, "max":1},
 	"y":{"min": 0, "max":0.5}
 }
-export var maximun_x:float
-export var is_controlled:bool = false
-var speed: float = 6
-var _is_walking:bool = false
-var _ball = null
-var _original_position:Vector2
-var _target_move:Vector2 
 
-func reset_position():
-	_target_move = _original_position;
+func _getbound():
+	pass
+
+func reset_position(): _target_move = _original_position
 
 
 func pass_ball(target:Node2D):
@@ -28,82 +43,106 @@ func pass_ball(target:Node2D):
 	_ball.make_pass(force,self)
 
 
+# Node Stand Func
 func _ready():
+	Signals.connect("on_goal",self,"on_goal")
+	Signals.connect("on_match_start",self,"on_match_start")
 	_original_position = position;
 	_target_move = Data.get_random_field_coord()
 	$AnimationPlayer.play("Idle")
 	speed *= 1000
 	if(is_controlled): return
-	
-	pass 
-
-
 
 
 func _physics_process(delta):
+	
+	_base_physics(_set_delta(delta))
+
+func _set_delta(delta): return Globals.timescale * delta
+
+
+func _base_physics(delta):
 	if not active: return
 	if(is_controlled):
+		
 		_human_move(delta)
 		return
 	_is_walking = false
 	_machine_move(delta)
 
-
 func _process(_delta):
 	if not active: return
+	$AnimationPlayer.playback_speed = Globals.timescale
 	if _is_walking:
 		$AnimationPlayer.play("Walk")
 	else: $AnimationPlayer.play("Idle")
-
-
 	if(is_controlled):
+		if Input.is_action_just_pressed(Data.PlayerInputs[team].skill): _activate_hablility()
 		_strike()
 		return
-	
-	_machine_pass()
+	_auto_target()
 
 
-func _machine_pass():
+func _on_Area2D_body_entered(body):
+	if body.name == "Ball":
+		_ball = body
+
+
+#AI Func
+func _auto_target():
+	if !_ia_active: return
 	_target_move = Globals.game.ball.position
-	pass
 
 
-func _priory_ball():
-	pass
 
-func _getbound():
-	pass
+
 
 func _machine_move(delta):
 	var porcent:Vector2 = Data.get_percent(_target_move)
-	var maxX = (0.5 + team * 0.5)
-	if porcent.x > maxX or porcent.x < team * 0.5: return
+	var xsize:Vector2 = Vector2(bounds.x.min,bounds.x.max) 
+	if(team > 0):
+		var dist = xsize.y - xsize.x
+		xsize = Vector2(1 - dist - bounds.x.min,1 - bounds.x.min)
+	if porcent.x > xsize.y or porcent.x < xsize.x: return
 	var distance = position.distance_to(_target_move)
 	var dir = position.direction_to(_target_move)
-	if distance < 30 :
-		pass_ball(Globals.game.get_current_character())
+	if _player_to_pass < 5:
+		pass_ball(Globals.game.teams[team].npcs[_player_to_pass])
+	else: pass_ball(Globals.game.teams[team].current_npc)
 	if distance < 10 :
 		 dir = Vector2.ZERO
 	_move_to(delta, dir)
 	pass
 
+
+#Player Func
+
 func _strike():
-	if not Input.is_action_just_pressed(Data.PlayerInputs[team].strike):
-		return
-	
+	if not Input.is_action_just_pressed(Data.PlayerInputs[team].strike): return
+	var enemy = (team + 1) % 2
+	pass_ball(Globals.game.teams[enemy].goal_arc)
 	pass
 
 
 func _activate_hablility():
 	pass
 
-
 func _human_move(delta):
 	var horizontal_axis:float = Input.get_axis(Data.PlayerInputs[team].left,Data.PlayerInputs[team].right)
 	var vertical_axis:float = Input.get_axis(Data.PlayerInputs[team].down, Data.PlayerInputs[team].up)
 	_move_to(delta, Vector2(horizontal_axis,-vertical_axis) * 1.4)
 
+#Nav
 
+func on_goal():
+	is_controlled = false
+	_ia_active = false
+	reset_position()
+
+func on_match_start():
+	_ia_active = true
+
+# Movement
 func _move_to(delta, dir):
 	_is_walking = not (dir.x == 0 and dir.y == 0)
 	
@@ -115,13 +154,3 @@ func _move_to(delta, dir):
 # warning-ignore:return_value_discarded
 	move_and_slide(horizontal_velocity + (vertical_velocity), Vector2.UP)
 
-
-func _on_Area2D_body_entered(body):
-
-# Pasar la delegacion a la pelota
-	if body.name == "Ball":
-		
-		var ball = body
-		ball.set_last_player_touched(self)
-		
-	pass # Replace with function body.

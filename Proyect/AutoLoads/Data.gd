@@ -1,6 +1,6 @@
 extends Node
 
-var field_dimsx = Vector2(107, 878)
+var field_dimsx = Vector2(58, 976)
 var field_dimsy = Vector2(82, 466)
 
 var PlayerInputs=[
@@ -11,7 +11,8 @@ var PlayerInputs=[
 		"right":"player1_right",
 		"offensive": "player1_change_offensive",
 		"defensive":"player1_change_defensive",
-		"strike": "player1_strike"
+		"strike": "player1_strike",
+		"skill": "player1_ultimate"
 	},
 	{
 		"up": "player2_up",
@@ -20,7 +21,8 @@ var PlayerInputs=[
 		"right":"player2_right",
 		"offensive": "player2_change_offensive",
 		"defensive":"player2_change_defensive",
-		"strike": "player2_strike"
+		"strike": "player2_strike",
+		"skill": "player2_ultimate"
 	}
 ]
 

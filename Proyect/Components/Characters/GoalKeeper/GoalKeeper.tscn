@@ -5,3 +5,13 @@
 
 [node name="GoalKeeper" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+bounds = {
+"x": {
+"max": 0.3,
+"min": 0.0
+},
+"y": {
+"max": 0.7,
+"min": 0.3
+}
+}

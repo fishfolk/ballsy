@@ -6,6 +6,16 @@
 
 [node name="Defender" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+bounds = {
+"x": {
+"max": 0.5,
+"min": 0.0
+},
+"y": {
+"max": 0.5,
+"min": 0
+}
+}
 
 [node name="Sprite" parent="." index="1"]
 texture = ExtResource( 3 )

@@ -48,8 +48,7 @@ func _physics_process(delta):
 
 func make_strike(force , node):
 
-	if node != last_player_touched: 
-		return
+	
 	print(last_player_touched)
 	linear_velocity += force
 	linear_velocity = Vector2(clamp(linear_velocity.x, -450, 450), clamp(linear_velocity.y, -450, 450))
@@ -63,14 +62,16 @@ func make_pass_to_character(target_node , node):
 	make_pass(force , node)
 
 func make_pass(force , node):
-	make_strike(force , node)
+	if node != last_player_touched: 
+		return
 	last_player_touched = null
+	make_strike(force , node)
 
 
 func _on_Detector_body_entered(body):
 	if body is MainCharacter:
 		last_player_touched = body
-		body._ball = self
+		body.set_ball(self)
 		var direction =  position.direction_to(body.position)
 		make_strike(-direction * 250, body)
 
