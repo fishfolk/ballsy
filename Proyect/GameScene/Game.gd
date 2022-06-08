@@ -64,6 +64,17 @@ func _check_change_player(team:int = 0):
 	print(f)
 	_changePlayer(f,team)
 
+
+
+func get_enemy_closed(npc:MainCharacter):
+	var target_team = Data.get_team_enemy(npc.team);
+	var distances= []
+	for enemy in teams[target_team].npcs:
+		distances.append(npc.position.distance_to(enemy.position))
+	var less_distance = distances.min()
+	if(distances.find(less_distance) < 0):return null
+	return teams[target_team].npcs[distances.find(less_distance)]
+
 func _set_teams():
 	teams = [
 		{

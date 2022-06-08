@@ -29,6 +29,9 @@ export var bounds = {
 	"y":{"min": 0, "max":0.5}
 }
 
+#Nodes
+var _played_ndicator:Node2D
+
 func _getbound():
 	pass
 
@@ -36,15 +39,18 @@ func reset_position(): _target_move = _original_position
 
 
 func pass_ball(target:Node2D):
+
 	if _ball == null: return
 	var direction:Vector2 = _ball.position.direction_to(target.position)
-	var distance:float = self.position.distance_to(target.position)
+	var distance:float = _ball.position.distance_to(target.position)
 	var force = direction * (distance * 2 + 100)
+
 	_ball.make_pass(force,self)
 
 
 # Node Stand Func
 func _ready():
+	_played_ndicator = $Sprite/PlayableIndicator
 	Signals.connect("on_goal",self,"on_goal")
 	Signals.connect("on_match_start",self,"on_match_start")
 	_original_position = position;
@@ -56,6 +62,7 @@ func _ready():
 
 func _physics_process(delta):
 	
+	if !is_controlled: _auto_target()
 	_base_physics(_set_delta(delta))
 
 func _set_delta(delta): return Globals.timescale * delta
@@ -71,6 +78,7 @@ func _base_physics(delta):
 	_machine_move(delta)
 
 func _process(_delta):
+	_played_ndicator.visible = is_controlled
 	if not active: return
 	$AnimationPlayer.playback_speed = Globals.timescale
 	if _is_walking:
@@ -80,7 +88,6 @@ func _process(_delta):
 		if Input.is_action_just_pressed(Data.PlayerInputs[team].skill): _activate_hablility()
 		_strike()
 		return
-	_auto_target()
 
 
 func _on_Area2D_body_entered(body):
@@ -91,19 +98,25 @@ func _on_Area2D_body_entered(body):
 #AI Func
 func _auto_target():
 	if !_ia_active: return
-	_target_move = Globals.game.ball.position
-
+	var closed_enemy = Globals.game.get_enemy_closed(self)
+	var distance_to_cover = position.distance_to(closed_enemy.position)
+	var distance_to_ball = position.distance_to(Globals.game.ball.position)
+	var n = [9 * 100/distance_to_ball, 6 * 100/distance_to_cover].find([distance_to_ball,distance_to_cover].max())
+	_target_move = [Globals.game.ball.position, closed_enemy.position][n]
 
 
 
 
 func _machine_move(delta):
-	var porcent:Vector2 = Data.get_percent(_target_move)
+	var percent:Vector2 = Data.get_percent(_target_move)
 	var xsize:Vector2 = Vector2(bounds.x.min,bounds.x.max) 
+	var ysize:Vector2 = Vector2(bounds.y.min,bounds.y.max) 
 	if(team > 0):
 		var dist = xsize.y - xsize.x
 		xsize = Vector2(1 - dist - bounds.x.min,1 - bounds.x.min)
-	if porcent.x > xsize.y or porcent.x < xsize.x: return
+	percent.x = clamp(percent.x, xsize.x,xsize.y)
+	percent.y = clamp(percent.y, ysize.x,ysize.y)
+	_target_move = Data.field_to_world(percent)
 	var distance = position.distance_to(_target_move)
 	var dir = position.direction_to(_target_move)
 	if _player_to_pass < 5:

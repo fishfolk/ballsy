@@ -1,9 +1,11 @@
 extends MainCharacter
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+#AI Func
+func _auto_target():
+	if !_ia_active: return
+	_target_move = Globals.game.ball.position
+	return
 
 
 # Called when the node enters the scene tree for the first time.

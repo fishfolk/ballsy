@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Boots(32x32).png-8c84e64b0739d41c4d9c40fa453d12ee.stex"
+path="res://.import/field.png-66624c00339b513ee2140748e5dc0ced.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Components/Sprites/FishFight/items/Boots(32x32).png"
-dest_files=[ "res://.import/Boots(32x32).png-8c84e64b0739d41c4d9c40fa453d12ee.stex" ]
+source_file="res://Components/Sprites/field.png"
+dest_files=[ "res://.import/field.png-66624c00339b513ee2140748e5dc0ced.stex" ]
 
 [params]
 

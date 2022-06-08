@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Components/Characters/MainCharacter.gd" type="Script" id=1]
+[ext_resource path="res://Components/Sprites/FishFight/items/Boots(32x32).png" type="Texture" id=2]
 [ext_resource path="res://Components/Sprites/FishFight/player/PlayerFishy(64x64).png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=4]
@@ -75,6 +76,10 @@ texture = ExtResource( 3 )
 hframes = 16
 vframes = 8
 frame = 1
+
+[node name="PlayableIndicator" type="Sprite" parent="Sprite"]
+position = Vector2( 1, -52.5 )
+texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -0.5 )

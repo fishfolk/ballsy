@@ -10,7 +10,8 @@ var timestamp:float
 var time_to:float
 var cd:float = 3
 var _original_pos:Vector2
-var reset:bool 
+var reset:bool
+var _isactve:bool = true
 
 func reset_pos():
 	reset = true
@@ -46,9 +47,7 @@ func _physics_process(delta):
 	var rotation = rotation_speed * speed * delta
 	sprite.transform = sprite.transform.rotated(rotation)
 
-func make_strike(force , node):
-
-	
+func make_strike(force ):
 	print(last_player_touched)
 	linear_velocity += force
 	linear_velocity = Vector2(clamp(linear_velocity.x, -450, 450), clamp(linear_velocity.y, -450, 450))
@@ -65,7 +64,8 @@ func make_pass(force , node):
 	if node != last_player_touched: 
 		return
 	last_player_touched = null
-	make_strike(force , node)
+	make_strike(force)
+
 
 
 func _on_Detector_body_entered(body):
@@ -73,5 +73,5 @@ func _on_Detector_body_entered(body):
 		last_player_touched = body
 		body.set_ball(self)
 		var direction =  position.direction_to(body.position)
-		make_strike(-direction * 250, body)
+		make_strike(-direction * 250)
 
