@@ -99,6 +99,7 @@
 extents = Vector2( 475, 45 )
 
 [node name="Game" type="Node2D"]
+position = Vector2( 129, 60 )
 script = ExtResource( 4 )
 
 [node name="TileMap" type="TileMap" parent="."]

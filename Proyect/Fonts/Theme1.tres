@@ -1,0 +1,11 @@
+[gd_resource type="Theme" load_steps=4 format=2]
+
+[ext_resource path="res://Fonts/P24.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Fonts/Panel1.tres" type="StyleBox" id=2]
+[ext_resource path="res://Fonts/boton1.tres" type="StyleBox" id=3]
+
+[resource]
+default_font = ExtResource( 1 )
+/styles/Boton = ExtResource( 3 )
+Label/fonts/font = ExtResource( 1 )
+Panel/styles/panel = ExtResource( 2 )

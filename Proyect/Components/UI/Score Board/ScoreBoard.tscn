@@ -18,6 +18,7 @@ Label/fonts/font = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
+time_match = 180.0
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
@@ -25,9 +26,10 @@ anchor_bottom = 1.0
 margin_bottom = -535.0
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="CenterContainer"]
-margin_left = 439.0
-margin_right = 584.0
-margin_bottom = 134.0
+margin_left = 567.0
+margin_top = 25.0
+margin_right = 712.0
+margin_bottom = 159.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/AspectRatioContainer"]
 margin_right = 145.0

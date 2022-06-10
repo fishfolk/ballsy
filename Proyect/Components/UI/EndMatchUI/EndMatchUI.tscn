@@ -1,0 +1,191 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Fonts/Theme1.tres" type="Theme" id=1]
+[ext_resource path="res://Fonts/Roboto Slab/RobotoMono-VariableFont_wght.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Sounds/whistle_sfx.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Components/UI/EndMatchUI/EndMatchUI.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "CloseEndMatch"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Panel:margin_bottom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0.0, -751.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Panel:margin_top")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0.0, -751.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "OpenWinBoard"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Panel:margin_bottom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -780.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Panel:margin_top")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -780.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Panel/BackMainMenu:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Panel:margin_bottom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -723.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Panel:margin_top")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -723.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Panel/BackMainMenu:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[node name="EndMatchUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.2
+anchor_top = 0.1
+anchor_right = 0.875
+anchor_bottom = 0.9
+margin_top = -723.0
+margin_bottom = -723.0
+theme = ExtResource( 1 )
+
+[node name="Title Label" type="Label" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 0.158
+margin_bottom = 0.159996
+custom_colors/font_color = Color( 1, 0.831373, 0.0627451, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Result"
+align = 1
+valign = 1
+
+[node name="ResultLabel" type="Label" parent="Panel"]
+anchor_top = 0.187
+anchor_right = 1.0
+anchor_bottom = 0.346
+margin_top = 0.239998
+margin_bottom = -0.0800018
+custom_colors/font_color = Color( 1, 0.831373, 0.0627451, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "P1 0 - 0 P2"
+align = 1
+valign = 1
+
+[node name="WinnerLabel" type="Label" parent="Panel"]
+anchor_top = 0.46
+anchor_right = 1.0
+anchor_bottom = 0.619
+margin_top = 0.199997
+margin_bottom = -0.119995
+custom_colors/font_color = Color( 1, 0.831373, 0.0627451, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Winner: P1"
+align = 1
+valign = 1
+
+[node name="BackMainMenu" type="Button" parent="Panel"]
+anchor_top = 0.842
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -0.160034
+margin_right = -0.400024
+disabled = true
+
+[node name="ButtonLabel" type="Label" parent="Panel/BackMainMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+text = "Back to main menu"
+align = 1
+valign = 1
+
+[node name="WistleSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+anims/CloseEndMatch = SubResource( 4 )
+anims/OpenWinBoard = SubResource( 2 )
+anims/RESET = SubResource( 3 )
+
+[connection signal="button_down" from="Panel/BackMainMenu" to="." method="_on_BackMainMenu_button_down"]

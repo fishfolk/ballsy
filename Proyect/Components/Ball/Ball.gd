@@ -42,13 +42,13 @@ func _process(delta):
 	timestamp = OS.get_unix_time()
 
 func _physics_process(delta):
+	if(!Globals.in_match): return
 	var speed = linear_velocity.x
 	var sprite = $CollisionShape2D/Sprite
 	var rotation = rotation_speed * speed * delta
 	sprite.transform = sprite.transform.rotated(rotation)
 
 func make_strike(force ):
-	print(last_player_touched)
 	linear_velocity += force
 	linear_velocity = Vector2(clamp(linear_velocity.x, -450, 450), clamp(linear_velocity.y, -450, 450))
 

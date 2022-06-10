@@ -52,7 +52,8 @@ func pass_ball(target:Node2D):
 func _ready():
 	_played_ndicator = $Sprite/PlayableIndicator
 	Signals.connect("on_goal",self,"on_goal")
-	Signals.connect("on_match_start",self,"on_match_start")
+	Signals.connect("on_resume",self,"on_resume")
+	_played_ndicator.visible = is_controlled
 	_original_position = position;
 	_target_move = Data.get_random_field_coord()
 	$AnimationPlayer.play("Idle")
@@ -61,7 +62,7 @@ func _ready():
 
 
 func _physics_process(delta):
-	
+	if(!Globals.in_match): return
 	if !is_controlled: _auto_target()
 	_base_physics(_set_delta(delta))
 
@@ -78,6 +79,7 @@ func _base_physics(delta):
 	_machine_move(delta)
 
 func _process(_delta):
+	if(!Globals.in_match): return
 	_played_ndicator.visible = is_controlled
 	if not active: return
 	$AnimationPlayer.playback_speed = Globals.timescale
@@ -152,7 +154,7 @@ func on_goal():
 	_ia_active = false
 	reset_position()
 
-func on_match_start():
+func on_resume():
 	_ia_active = true
 
 # Movement

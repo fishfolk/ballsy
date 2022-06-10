@@ -1,7 +1,16 @@
+### Version 10/06/2022
+
++ Adding Main Menu.
++ Adding Score Board.
++ Adding Versus Mode.
+
+---
+
 ### Version 08/06/2022
 + Adding FishAI priority system, now will be cover other team players, and pass the ball to others fish.
 + Adding background decoration.
 
+---
 
 ### Version 06/06/2022
 

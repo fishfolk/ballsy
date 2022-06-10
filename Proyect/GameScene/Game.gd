@@ -7,18 +7,23 @@ var ball
 var teams = []
 var score:Vector2 = Vector2(0,0)
 
+func on_match_start():
+	pass
+
+
+
 func get_score(): return score
 
 func on_add_goal(team):
-	Signals.emit_signal("on_goal")
 	Globals.timescale = 2
 	if(team < 1):
 		score.x += 1
 	else: score.y += 1
-	Globals.score_board.display_score(score)
+	Data.score = get_score()
+	Signals.emit_signal("on_goal")
 	Globals.goalAnim.play()
 	yield(get_tree().create_timer(5),"timeout")
-	Signals.emit_signal("on_match_start")
+	Signals.emit_signal("on_resume")
 	Globals.timescale = 1
 	teams[0].current_npc.is_controlled = true
 	teams[1].current_npc.is_controlled = true
@@ -37,6 +42,8 @@ func _changePlayer(id:int, team:int = 0):
 	teams[team].current_id = id
 
 func _ready():
+	score = Vector2.ZERO
+	Data.score = get_score()
 	Globals.game = self
 	ball = $YSort/Ball
 # warning-ignore:return_value_discarded
@@ -48,6 +55,7 @@ func _ready():
 
 # warning-ignore:unused_argument
 func _process(delta):
+	if(!Globals.in_match): return
 	_check_change_player(0)
 	_check_change_player(1)
 	pass
@@ -61,7 +69,6 @@ func _check_change_player(team:int = 0):
 		return
 	var f:int = teams[team].current_id +  int(Input.get_axis(Data.PlayerInputs[team].defensive,Data.PlayerInputs[team].offensive))
 	f = clamp(f, 0,4)
-	print(f)
 	_changePlayer(f,team)
 
 

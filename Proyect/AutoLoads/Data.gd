@@ -2,6 +2,7 @@ extends Node
 
 var field_dimsx = Vector2(70, 70 + 880)
 var field_dimsy = Vector2(78, 78 + 440)
+var score = Vector2(0,0)
 
 var PlayerInputs=[
 	{
