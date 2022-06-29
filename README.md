@@ -1,5 +1,7 @@
 # Fish Folk: Ballsy
 
+[![Discord](https://img.shields.io/badge/chat-on%20discord-green.svg?logo=discord&logoColor=fff&labelColor=1e1c24&color=8d5b3f)](https://discord.gg/SyAQx56RhW)
+
 [Five-a-side_football](https://en.wikipedia.org/wiki/Five-a-side_football) (soccer) with aquatic superpowers.
 
 Inspired by games like Kunio-kun's Nekketsu Soccer League, Mario Strikers and NBA Hangtime.
