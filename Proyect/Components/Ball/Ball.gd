@@ -1,77 +1,87 @@
 extends RigidBody2D
 class_name Ball
 
+var _target:Node2D = null
 
-var rotation_speed:float = 0.15
+## Physics Settings
+const _DAMP = 6
+const _BOUNCE_FORCE = 600
 
-var last_player_touched:Node2D = null
+## NOTINTERACTIONS
+var _is_interactuable:bool = true
+var _time_to_interactuable:float = 0
+var _default_time_not_interactuable:float = 3
 
-var timestamp:float
-var time_to:float
-var cd:float = 3
-var _original_pos:Vector2
-var reset:bool
-var _isactve:bool = true
-
-func reset_pos():
-	reset = true
-
-func _integrate_forces(state):
-	if reset:
-		state.transform = Transform2D(rotation, _original_pos)
-		state.linear_velocity = Vector2.ZERO
-		reset = false
-
-
-
-func set_last_player_touched(node):
-	last_player_touched = node
-
+## TOUCH BODY VARS
+const _MAX_DISTANCE_TO_BODY:float = 600.0
+var _body_touch:Node2D = null
 
 func _ready():
-	_original_pos = position
-	print("Inicio: ",_original_pos)
-	timestamp = OS.get_unix_time()
-	add_Time()
+	linear_damp = _DAMP
 	pass
 
-func add_Time():
-	time_to = timestamp + cd
+func set_target(target:Node2D):
+	_target = target
 
 func _process(delta):
-	timestamp = OS.get_unix_time()
+	
+	_check_distnace_to_body()
+	
+	pass
 
 func _physics_process(delta):
-	if(!Globals.in_match): return
-	var speed = linear_velocity.x
-	var sprite = $CollisionShape2D/Sprite
-	var rotation = rotation_speed * speed * delta
-	sprite.transform = sprite.transform.rotated(rotation)
-
-func make_strike(force ):
-	linear_velocity += force
-	linear_velocity = Vector2(clamp(linear_velocity.x, -450, 450), clamp(linear_velocity.y, -450, 450))
-
-func make_pass_to_character(target_node , node):
-	if time_to > timestamp: return
-	add_Time()
-	var dir = position.direction_to(target_node.position)
-	var distance = position.distance_to(target_node.position)
-	var force = (dir * 50) + (dir * 250 * distance)
-	make_pass(force , node)
-
-func make_pass(force , node):
-	if node != last_player_touched: 
-		return
-	last_player_touched = null
-	make_strike(force)
+	if (_target == null): return
+	var direction:Vector2 = _target.position.direction_to(position)
+	linear_velocity = direction * (_BOUNCE_FORCE * 0.5)
+	pass
 
 
+
+## TOUCH BODY FUNCTS
+func _check_distnace_to_body():
+	if(_body_touch == null): return
+	var dist = position.distance_to(_body_touch.position)
+	if(dist > _MAX_DISTANCE_TO_BODY):
+		_body_touch = null
+		print("(41) Ball: RELEASE")
 
 func _on_Detector_body_entered(body):
 	if body is MainCharacter:
-		last_player_touched = body
-		body.set_ball(self)
-		var direction =  position.direction_to(body.position)
-		make_strike(-direction * 250)
+		var node:Node2D = body
+		_body_touch = body;
+		print("(48) BAll: TOUCHED")
+		_strike(node)
+	pass # Replace with function body.
 
+##PLAYER INTERACTIONS
+func strike(valid:Node2D, target:Node2D):
+	if(valid != _body_touch): return
+	print("(58) Ball: STRIKE VALID!")
+	_strike(target)
+
+## PHYSICS
+func _strike(target:Node2D):
+	var direction:Vector2 = target.position.direction_to(position)
+	linear_velocity = direction * _BOUNCE_FORCE
+
+
+## INTERACTUABLE FUNCTS
+func _check_interactuable():
+	if(_is_interactuable): return
+	_is_interactuable = OS.get_unix_time() > _time_to_interactuable
+	_update_collision_shape()
+	pass
+
+
+func _update_collision_shape():
+	if($"Detector/Detector Shape".disabled !=  _is_interactuable): return
+	$"Detector/Detector Shape".disabled = not _is_interactuable
+	print("(78) Ball interaction = ", $"Detector/Detector Shape".disabled)
+	pass
+
+
+func _disable_interaction(time_left:float = _default_time_not_interactuable):
+	_is_interactuable = false
+	_update_collision_shape()
+	_time_to_interactuable = OS.get_unix_time() + time_left
+	pass

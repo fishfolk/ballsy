@@ -11,8 +11,6 @@ export var is_controlled:bool = false
 # Settigns
 var speed: float = 6
 export var team:int = 0
-var _ball = null
-func set_ball(ball): _ball = ball
 
 #IA vars
 var _ia_active:bool = true
@@ -39,14 +37,13 @@ func reset_position(): _target_move = _original_position
 
 
 func pass_ball(target:Node2D):
-
-	if _ball == null: return
-	var direction:Vector2 = _ball.position.direction_to(target.position)
-	var distance:float = _ball.position.distance_to(target.position)
-	var force = direction * (distance * 2 + 100)
-
-	_ball.make_pass(force,self)
-
+#
+#	if _ball == null: return
+#	var direction:Vector2 = _ball.position.direction_to(target.position)
+#	var distance:float = _ball.position.distance_to(target.position)
+#	var force = direction * (distance * 2 + 100)
+#	_ball.apply_force_filtered(force,self)
+	pass
 
 # Node Stand Func
 func _ready():
@@ -91,12 +88,6 @@ func _process(_delta):
 		_strike()
 		return
 
-
-func _on_Area2D_body_entered(body):
-	if body.name == "Ball":
-		_ball = body
-
-
 #AI Func
 func _auto_target():
 	if !_ia_active: return
@@ -134,8 +125,10 @@ func _machine_move(delta):
 
 func _strike():
 	if not Input.is_action_just_pressed(Data.PlayerInputs[team].strike): return
+	print("(127) MainCharacter: Strike!!")
 	var enemy = (team + 1) % 2
-	pass_ball(Globals.game.teams[enemy].goal_arc)
+	var arc = Globals.game.teams[enemy].goal_arc
+	Globals.game.ball.strike(self as Node2D , arc as Node2D)
 	pass
 
 

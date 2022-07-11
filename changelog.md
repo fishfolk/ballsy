@@ -1,3 +1,10 @@
+### Version 11/07/2022
+
+---
+
++ Re-Write Ball Behavior.
++ Re-Write Main Character Behavior.
+
 ### Version 10/06/2022
 
 + Adding Main Menu.

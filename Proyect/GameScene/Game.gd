@@ -10,9 +10,8 @@ var score:Vector2 = Vector2(0,0)
 func on_match_start():
 	pass
 
-
-
 func get_score(): return score
+
 
 func on_add_goal(team):
 	Globals.timescale = 2
@@ -61,7 +60,7 @@ func _process(delta):
 	pass
 
 
-
+#change player to other character
 func _check_change_player(team:int = 0):
 	var not_change_pressed:bool = not Input.is_action_just_pressed(Data.PlayerInputs[team].offensive)
 	not_change_pressed = not_change_pressed and not Input.is_action_just_pressed(Data.PlayerInputs[team].defensive)
@@ -72,7 +71,7 @@ func _check_change_player(team:int = 0):
 	_changePlayer(f,team)
 
 
-
+#get te closed player of the other team
 func get_enemy_closed(npc:MainCharacter):
 	var target_team = Data.get_team_enemy(npc.team);
 	var distances= []
@@ -82,6 +81,7 @@ func get_enemy_closed(npc:MainCharacter):
 	if(distances.find(less_distance) < 0):return null
 	return teams[target_team].npcs[distances.find(less_distance)]
 
+#map the players in scene
 func _set_teams():
 	teams = [
 		{
