@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Game",
 "language": "GDScript",
-"path": "res://GameScene/Game.gd"
+"path": "res://Components/GameArena/Game.gd"
 }, {
 "base": "Node2D",
 "class": "Goal",

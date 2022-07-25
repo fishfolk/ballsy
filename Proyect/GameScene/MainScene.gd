@@ -2,7 +2,7 @@ extends Control
 
 class_name MainScene
 
-var game_asset = preload("res://GameScene/Game.tscn")
+var game_asset = preload("res://Components/GameArena/Game.tscn")
 var game
 
 
