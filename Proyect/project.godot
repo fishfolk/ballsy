@@ -166,6 +166,8 @@ player2_ultimate={
 
 2d_physics/layer_1="Ball"
 2d_physics/layer_2="Characters"
+2d_physics/layer_3="Walls"
+2d_physics/layer_4="Arcs"
 
 [physics]
 
